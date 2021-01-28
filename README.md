@@ -37,22 +37,23 @@ var spaghetti = Module.cwrap(
 var max = Module.cwrap('max', 'number', ['number', 'number']);
 
 // create a new typed array
-var myTypedArray = new Int8Array([3,2,1])
+var myTypedArray = new Uint8Array([3,2,1,5,19,4,7,6,9,10,11,14,12,13,16,17,15,18,20,21,8]);
 
 // allocate the memory for the array
 var ptr = Module._malloc(myTypedArray.length*myTypedArray.BYTES_PER_ELEMENT);
 
 // set the array on the heap
-Module.HEAP8.set(myTypedArray, ptr);
+Module.HEAPU8.set(myTypedArray, ptr);
 
 // call the C method "max" on the array
-var res = max(3, ptr) // should return 3
+var res = max(myTypedArray.length, ptr); // should return 21
 
 // call the C method "spaghettiSort" on the array
-var sortedArrayPtr = spaghetti(3, ptr) // return the sorted array's pointer address
+var sortedArrayPtr = spaghetti(myTypedArray.length, ptr); // return the sorted array's pointer address
 
 // Read the value of the sorted array
-Module.getValue(sortedArrayPtr, 'i8') // should return 1
-Module.getValue(sortedArrayPtr+1, 'i8') // should return 2
-Module.getValue(sortedArrayPtr+2, 'i8') // should return 3
+Module.getValue(sortedArrayPtr, 'i8'); // should return 1
+Module.getValue(sortedArrayPtr+1, 'i8'); // should return 2
+Module.getValue(sortedArrayPtr+2, 'i8'); // should return 3
+// ...
 ```
