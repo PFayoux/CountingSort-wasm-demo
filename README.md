@@ -1,4 +1,4 @@
-# Spaghetti Sort Web Assembly demo 
+# ~~Spaghetti~~ Counting Sort Web Assembly demo 
 
 This is a Web Assembly demo using emscripten.
 
