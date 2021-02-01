@@ -1,4 +1,4 @@
-# ~~Spaghetti~~ Counting Sort Web Assembly demo 
+# Counting Sort Web Assembly demo 
 
 This is a Web Assembly demo using emscripten.
 
@@ -9,7 +9,7 @@ First of all you will need to install emscripten and configure your environment,
 When your installation is complete, you can run the following command to build our wasm module :
 
 ```bash
-emcc -o spaghetti.html spaghetti.c -O3 -s WASM=1 -s NO_EXIT_RUNTIME=1 -s "EXTRA_EXPORTED_RUNTIME_METHODS=['ccall', 'cwrap', 'writeArrayToMemory', 'getValue']" -s EXPORTED_FUNCTIONS="['_malloc', '_free', '_max', '_spaghettiSort']"
+emcc -o counting.html counting.c -O3 -s WASM=1 -s NO_EXIT_RUNTIME=1 -s "EXTRA_EXPORTED_RUNTIME_METHODS=['ccall', 'cwrap', 'writeArrayToMemory', 'getValue']" -s EXPORTED_FUNCTIONS="['_malloc', '_free', '_max', '_countingSort']"
 ```
 
 Or run the `build` script :
@@ -20,17 +20,17 @@ $ ./build
 
 This will generate the files : 
 
- * spaghetti.html
- * spaghetti.js
- * spaghetti.wasm
+ * counting.html
+ * counting.js
+ * counting.wasm
 
-You can try the module by serving those file with a web server and open `spaghetti.html` with a browser. Opening the file directly from the file system in a browser will cause the error `Cross-Origin Request Blocked`.
+You can try the module by serving those file with a web server and open `counting.html` with a browser. Opening the file directly from the file system in a browser will cause the error `Cross-Origin Request Blocked`.
 
 Then you can try the following code in the console : 
 
 ```javascript
-var spaghetti = Module.cwrap(
-            'spaghettiSort',    // name of C function
+var counting = Module.cwrap(
+            'countingSort',    // name of C function
             'number',    // return type
             ['number', 'number']
         );
@@ -48,8 +48,8 @@ Module.HEAPU8.set(myTypedArray, ptr);
 // call the C method "max" on the array
 var res = max(myTypedArray.length, ptr); // should return 21
 
-// call the C method "spaghettiSort" on the array
-var sortedArrayPtr = spaghetti(myTypedArray.length, ptr); // return the sorted array's pointer address
+// call the C method "countingSort" on the array
+var sortedArrayPtr = counting(myTypedArray.length, ptr); // return the sorted array's pointer address
 
 // Read the value of the sorted array
 Module.getValue(sortedArrayPtr, 'i8'); // should return 1
