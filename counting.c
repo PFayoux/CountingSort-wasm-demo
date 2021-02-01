@@ -23,7 +23,7 @@ EMSCRIPTEN_KEEPALIVE int max(uint8_t t_size, uint8_t *table) {
 /**
  * Sort the array given in parameter
  **/
-EMSCRIPTEN_KEEPALIVE uint8_t * spaghettiSort(uint8_t t_size, uint8_t *tableToSort ) {
+EMSCRIPTEN_KEEPALIVE uint8_t * countingSort(uint8_t t_size, uint8_t *tableToSort ) {
     // get the maximum of the array
     uint8_t valueMax = max(t_size, tableToSort);
     
